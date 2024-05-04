@@ -39,7 +39,7 @@ def count_frequencies(stringui, output_file):
     return stack[0]
 
 def most_frequent_character(s):
-    with open('Problema 05\output.txt', 'w', encoding='utf-8') as output_file:
+    with open('output.txt', 'w', encoding='utf-8') as output_file:
         string_with_frequencies = count_frequencies(s, output_file)
         max_freq = -1
         most_freq_char = None
@@ -56,6 +56,6 @@ def read_input_from_file(filename):
     with open(filename, 'r', encoding='utf-8') as file:
         return file.read().strip()
 
-filename = 'Problema 05\input.txt'  
+filename = 'input.txt'  
 input_data = read_input_from_file(filename)
 result = most_frequent_character(input_data)

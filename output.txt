@@ -1,0 +1,8 @@
+Intervalos coloridos:
+Intervalo [1, 4]: Cor 0
+Intervalo [2, 6]: Cor 1
+Intervalo [3, 4]: Cor 2
+Intervalo [4, 7]: Cor 0
+Intervalo [8, 9]: Cor 0
+
+Quantidade de cores usadas: 3
