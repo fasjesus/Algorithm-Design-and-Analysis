@@ -1,0 +1,11 @@
+
+Intervalos coloridos:
+
+Intervalo [1, 5]: Cor 0
+Intervalo [1, 3]: Cor 1
+Intervalo [2, 4]: Cor 2
+Intervalo [3, 5]: Cor 1
+Intervalo [7, 10]: Cor 0
+Intervalo [15, 20]: Cor 0
+
+Foram usadas 3 cores para colorir 6 intervalos.

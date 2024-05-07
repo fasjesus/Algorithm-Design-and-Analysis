@@ -20,7 +20,7 @@ def merge(left, right, output_file):
 
 def count_frequencies(stringui, output_file):
     stack = [[(elem, 1)] for elem in stringui]
-    output_file.write("Initial Stack:\n")
+    output_file.write("\nInitial Stack:\n")
     for sublist in stack:
         output_file.write(f"{sublist}\n")  # Write each sublist to the output file
     while len(stack) > 1:
@@ -33,29 +33,36 @@ def count_frequencies(stringui, output_file):
                 new_stack.append(stack[i])
                 
         stack = new_stack
-        output_file.write("Merged Stack:\n")
+        output_file.write("\nMerged Stack:\n")
         for sublist in stack:
             output_file.write(f"{sublist}\n")  # Write each sublist to the output file
     return stack[0]
 
 def most_frequent_character(s):
-    with open('output.txt', 'w', encoding='utf-8') as output_file:
-        string_with_frequencies = count_frequencies(s, output_file)
-        max_freq = -1
-        most_freq_char = None
-        for char, freq in string_with_frequencies:
-            if freq > max_freq:
-                max_freq = freq
-                most_freq_char = char
-            elif freq == max_freq and char > most_freq_char:
-                most_freq_char = char
-        output_file.write(f'O elemento mais frequente é: {most_freq_char}\n')
-        return most_freq_char
+    with open('Problema 05 - Elemento Mais Frequente/output.txt', 'w', encoding='utf-8') as output_file:
+        frequencies = count_frequencies(s, output_file)
+        maxFreq = -1
+        mostFreqChars = []
+        for char, freq in frequencies:
+            if freq > maxFreq:
+                maxFreq = freq
+                mostFreqChars = [char]
+            elif freq == maxFreq:
+                mostFreqChars.append(char)
+        
+        output_file.write(f'\nO(s) elemento(s) mais frequente(s) é(são): {", ".join(mostFreqChars)}.\n')
+        output_file.write(f'\nFrequência dos elementos:\n')
+
+        # Sort the list of frequencies in descending order before writing to the file
+        frequencies.sort(key=lambda x: x[1], reverse=True)
+        for char, freq in frequencies:
+            output_file.write(f'* {char}: {freq}\n')
+        return mostFreqChars
 
 def read_input_from_file(filename):
     with open(filename, 'r', encoding='utf-8') as file:
         return file.read().strip()
 
-filename = 'input.txt'  
-input_data = read_input_from_file(filename)
-result = most_frequent_character(input_data)
+filename = 'Problema 05 - Elemento Mais Frequente\input.txt'  
+input = read_input_from_file(filename)
+result = most_frequent_character(input)
