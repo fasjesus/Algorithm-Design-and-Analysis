@@ -6,14 +6,14 @@
 # QuickSort recursivo
 # Complexidade O(n²)
 
-def quicksort(arr):
+def quick_sort(arr):
     if len(arr) <= 1:
         return arr
     pivot = arr[len(arr) // 2]
     left = [x for x in arr if x < pivot]
     middle = [x for x in arr if x == pivot]
     right = [x for x in arr if x > pivot]
-    return quicksort(left) + middle + quicksort(right)
+    return quick_sort(left) + middle + quick_sort(right)
 
 def read_intervals_from_file(filename):
     intervals = []
@@ -23,34 +23,34 @@ def read_intervals_from_file(filename):
             intervals.append((start, end))
     return intervals
 
-def write_colored_intervals_to_file(intervals, colors, num_colors, filename):
+def write_colored_intervals_to_file(intervals, colors, numColors, filename):
     with open(filename, 'w') as file:
         file.write(f"\n")
         for i in range(len(intervals)):
             file.write(f"Intervalo {intervals[i]}: Cor {colors[i]}\n")
-        file.write(f"\nForam usadas {num_colors} cores para colorir {len(intervals)} intervalos.")
+        file.write(f"\nForam usadas {numColors} cores para colorir {len(intervals)} intervalos.")
 
 def color_intervals(intervals):
-    intervals = quicksort(intervals)  # Ordenar os intervalos usando quicksort
+    intervals = quick_sort(intervals)  # Ordenar os intervalos usando quicksort
     colors = [-1] * len(intervals)  # Inicializar cores como -1 (não atribuídas)
 
-    next_color = 0
+    nextColor = 0
     for i, (start, end) in enumerate(intervals):
-        used_colors = set()
+        usedColors = set()
         for j in range(i):
             if intervals[j][1] > start:  # Se o intervalo j se intersecta com o intervalo i
-                used_colors.add(colors[j])
-        available_color = 0
-        while available_color in used_colors:
-            available_color += 1
-        colors[i] = available_color
-        next_color = max(next_color, available_color)
+                usedColors.add(colors[j])
+        availableColor = 0
+        while availableColor in usedColors:
+            availableColor += 1
+        colors[i] = availableColor
+        nextColor = max(nextColor, availableColor)
 
-    return colors, next_color + 1
+    return colors, nextColor + 1
 
-input_filename = "Problema 06 - Intervalos Coloridos/input.txt"
-output_filename = "Problema 06 - Intervalos Coloridos/output.txt"
+inputFilename = "Problema 06 - Intervalos Coloridos/input.txt"
+outputFilename = "Problema 06 - Intervalos Coloridos/output.txt"
 
-intervals = read_intervals_from_file(input_filename)
-colors, num_colors = color_intervals(intervals)
-write_colored_intervals_to_file(intervals, colors, num_colors, output_filename)
+intervals = read_intervals_from_file(inputFilename)
+colors, numColors = color_intervals(intervals)
+write_colored_intervals_to_file(intervals, colors, numColors, outputFilename)
