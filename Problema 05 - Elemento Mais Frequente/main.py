@@ -61,7 +61,7 @@ def most_frequent_character(s):
         # Sort the list of frequencies in descending order before writing to the file
         frequencies.sort(key=lambda x: x[1], reverse=True)
         for char, freq in frequencies:
-            output_file.write(f'* {char}: {freq}\n')
+            output_file.write(f'* {char}: {freq} vez(es)\n')
         return mostFreqChars
 
 def read_input_from_file(filename):
