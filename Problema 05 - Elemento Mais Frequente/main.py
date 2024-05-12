@@ -1,3 +1,8 @@
+# Universidade Estadual de Santa Cruz
+# Discente: Flávia Alessandra Santos de Jesus.
+
+# Problema do Elemento Mais Frequente:
+
 def merge(left, right, output_file):
     result = []
     i = j = 0
