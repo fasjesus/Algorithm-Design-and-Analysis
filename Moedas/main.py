@@ -18,7 +18,7 @@ def TrocoOtimo(moedas, troco):
 
     return quantidade, ultima
 
-moedas = [1, 3, 12, 15]
+moedas = [1, 3, 10, 12, 15]
 troco_maximo = 45
 
 quantidades, ultimas_moedas = TrocoOtimo(moedas, troco_maximo)
