@@ -18,7 +18,7 @@ def TrocoOtimo(moedas, troco):
 
     return quantidade, ultima
 
-moedas = [1, 3, 10, 12, 15]
+moedas = [1, 3, 13, 15, 18]
 troco_maximo = 45
 
 quantidades, ultimas_moedas = TrocoOtimo(moedas, troco_maximo)
@@ -36,6 +36,6 @@ with open("Moedas/output.txt", "w") as file:
             troco_atual -= ultimas_moedas[troco_atual]
 
         if moedas_utilizadas:
-            file.write("{:<10} | {:<10} | {:<12} | {}\n".format(troco, quantidade_minima, moedas_utilizadas[-1], moedas_utilizadas))
+            file.write("{:<10}  {:<10}  {:<12}  {}\n".format(troco, quantidade_minima, moedas_utilizadas[-1], moedas_utilizadas))
         else:
-            file.write("{:<10} | {:<10} | {:<12} | {}\n".format(troco, quantidade_minima, "-", "Sem moedas utilizadas"))
+            file.write("{:<10}  {:<10}  {:<12}  {}\n".format(troco, quantidade_minima, "-", "Sem moedas utilizadas"))
