@@ -1,6 +1,6 @@
-Custo mínimo: 2
-Valor do caminho de custo mínimo: 30
-Caminho para custo mínimo: A -> B -> A
+Custo mínimo: 9
+Valor do caminho de custo mínimo: 60
+Caminho para custo mínimo: A -> C -> B -> A
 
 Valor máximo: 70
 Custo do caminho de valor máximo: 10

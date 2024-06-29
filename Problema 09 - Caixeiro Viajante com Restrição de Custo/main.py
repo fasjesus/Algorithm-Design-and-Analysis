@@ -55,40 +55,49 @@ def tsp_with_budget(n, cost_matrix, values, budget):
             total_cost = cost + cost_matrix[l-1][0]
             value = VALOR[subset, l]
             path = CAMINHO[subset, l] + [1]
-            valid_paths.append((total_cost, value, path))
+            # Verifica se o caminho contém pelo menos 2 expansões além do nó de origem
+            if len(path) > 2:  # Exclui o nó de origem que aparece no início e no final
+                valid_paths.append((total_cost, value, path))
 
-    # Encontrar o caminho de menor custo e o de maior valor
-    min_cost_path = None
-    min_cost = float('inf')
-    min_value_of_min_cost_path = 0
-    max_value_path = None
-    max_value = 0
-    max_cost_of_max_value_path = 0
+    # Separar caminhos por comprimento
+    length_paths = {}
     for path in valid_paths:
         total_cost, value, p = path
-        if total_cost < min_cost:
-            min_cost = total_cost
-            min_cost_path = p
-            min_value_of_min_cost_path = value
-        if value > max_value:
-            max_value = value
-            max_value_path = p
-            max_cost_of_max_value_path = total_cost
+        path_length = len(p) - 1  # Desconsiderar o nó de origem na contagem de vértices
+        if path_length not in length_paths:
+            length_paths[path_length] = {'min_cost': float('inf'), 'max_value': 0, 'min_cost_path': None, 'max_value_path': None}
 
-    # Verifica se nenhum caminho válido foi encontrado
-    if min_cost == float('inf'):
+        # Atualizar caminho de menor custo para esse comprimento
+        if total_cost < length_paths[path_length]['min_cost']:
+            length_paths[path_length]['min_cost'] = total_cost
+            length_paths[path_length]['min_cost_path'] = p
+            length_paths[path_length]['min_value_of_min_cost_path'] = value
+
+        # Atualizar caminho de maior valor para esse comprimento
+        if value > length_paths[path_length]['max_value']:
+            length_paths[path_length]['max_value'] = value
+            length_paths[path_length]['max_value_path'] = p
+            length_paths[path_length]['max_cost_of_max_value_path'] = total_cost
+
+    # Selecionar o comprimento de caminho que tem um caminho válido tanto para custo mínimo quanto para valor máximo
+    if length_paths:
+        max_length = max(length_paths.keys())
+        min_cost_path = length_paths[max_length]['min_cost_path']
+        min_cost = length_paths[max_length]['min_cost']
+        min_value_of_min_cost_path = length_paths[max_length]['min_value_of_min_cost_path']
+        max_value_path = length_paths[max_length]['max_value_path']
+        max_value = length_paths[max_length]['max_value']
+        max_cost_of_max_value_path = length_paths[max_length]['max_cost_of_max_value_path']
+    else:
         min_cost_result = "Não há caminho válido dentro do orçamento"
         min_cost_path = []
-    else:
-        min_cost_result = f"Custo mínimo: {min_cost}\nValor do caminho de custo mínimo: {min_value_of_min_cost_path}"
-        min_cost_path = min_cost_path
-
-    if not max_value_path:
         max_value_result = "Não há caminho válido dentro do orçamento"
         max_value_path = []
-    else:
+
+    if min_cost_path:
+        min_cost_result = f"Custo mínimo: {min_cost}\nValor do caminho de custo mínimo: {min_value_of_min_cost_path}"
+    if max_value_path:
         max_value_result = f"\nValor máximo: {max_value}\nCusto do caminho de valor máximo: {max_cost_of_max_value_path}"
-        max_value_path = max_value_path
 
     return min_cost_result, min_cost_path, max_value_result, max_value_path
 
