@@ -1,5 +1,3 @@
-Problema 09 - Caixeiro Viajante com Restrição de Custo/
-
 ====================== Problema 05: ==============================
 
 abacabad
@@ -37,4 +35,13 @@ abracadabra
 5 9
 6 10
 7 11  (a resposta deve ser 4 cores para colorir os 8 intervalos)
+
+================= Problema 09 - Caixeiro Viajante com Restrição de Custo
+4
+0 1 2 5
+1 0 6 4
+2 6 0 4
+5 4 4 0
+10 20 30 40
+10
 
