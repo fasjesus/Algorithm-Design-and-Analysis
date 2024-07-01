@@ -1,9 +1,9 @@
-# SEM RESTRIÇÃO DE ADJACÊNCIA DIAGONAL
+# RESTRIÇÃO DE ADJACÊNCIA DIAGONAL MÁXIMA
 
 import time
 
 def is_valid(board, row, col, color, n):
-    # Verificar adjacências
+    # Verificar adjacências horizontais e verticais
     if row > 0 and board[row-1][col] == color:
         return False
     if col > 0 and board[row][col-1] == color:
@@ -12,6 +12,17 @@ def is_valid(board, row, col, color, n):
         return False
     if col < n-1 and board[row][col+1] == color:
         return False
+    
+    # Verificar adjacências diagonais
+    if row > 0 and col > 0 and board[row-1][col-1] == color:
+        return False
+    if row > 0 and col < n-1 and board[row-1][col+1] == color:
+        return False
+    if row < n-1 and col > 0 and board[row+1][col-1] == color:
+        return False
+    if row < n-1 and col < n-1 and board[row+1][col+1] == color:
+        return False
+    
     return True
 
 def check_diagonals(board, n):
@@ -57,12 +68,12 @@ def coloracao_tabuleiro(n, colors):
     solutions = []
     
     # Definir limite de tempo em segundos
-    time_limit = 120  # por exemplo, 10 segundos
+    time_limit = 120  # por exemplo, 120 segundos
     start_time = time.time()  # tempo de início
     
     if solve(board, 0, 0, n, colors, start_time, time_limit, solutions):
         # Gravar até 2 soluções e a quantidade total de soluções
-        with open('Problema 08 - Coloração de Tabuleiro com Restrições/output.txt', 'w', encoding='utf-8') as f:
+        with open('Problema 08 - Coloração de Tabuleiro com Restrições/outputPlus.txt', 'w', encoding='utf-8') as f:
             if solutions:
                 f.write("Temos as seguintes soluções encontradas:\n\n")
                 for i, solution in enumerate(solutions):
@@ -75,7 +86,7 @@ def coloracao_tabuleiro(n, colors):
             else:
                 f.write("A quantidade de soluções é zero.\n")
     else:
-        with open('Problema 08 - Coloração de Tabuleiro com Restrições/output.txt', 'w', encoding='utf-8') as f:
+        with open('Problema 08 - Coloração de Tabuleiro com Restrições/outputPlus.txt', 'w', encoding='utf-8') as f:
             f.write("Tempo limite excedido. A quantidade de soluções pode ser zero ou não encontrada.\n")
 
 # Definir o tamanho do tabuleiro e o número de cores

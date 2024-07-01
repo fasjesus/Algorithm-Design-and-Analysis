@@ -1,9 +1,9 @@
-# SEM RESTRIÇÃO DE ADJACÊNCIA DIAGONAL
+# RESTRIÇÃO DE ADJACÊNCIA DIAGONAL, EXCETO PARA AS DIAGONAIS PRINCIPAL E SECUNDÁRIA
 
 import time
 
 def is_valid(board, row, col, color, n):
-    # Verificar adjacências
+    # Verificar adjacências horizontais e verticais
     if row > 0 and board[row-1][col] == color:
         return False
     if col > 0 and board[row][col-1] == color:
@@ -12,6 +12,17 @@ def is_valid(board, row, col, color, n):
         return False
     if col < n-1 and board[row][col+1] == color:
         return False
+    
+    # Verificar adjacências diagonais, exceto as diagonais principal e secundária
+    if (row > 0 and col > 0 and board[row-1][col-1] == color) and (row != col and row != n-1-col):
+        return False
+    if (row > 0 and col < n-1 and board[row-1][col+1] == color) and (row != col and row != n-1-col):
+        return False
+    if (row < n-1 and col > 0 and board[row+1][col-1] == color) and (row != col and row != n-1-col):
+        return False
+    if (row < n-1 and col < n-1 and board[row+1][col+1] == color) and (row != col and row != n-1-col):
+        return False
+    
     return True
 
 def check_diagonals(board, n):
@@ -57,26 +68,26 @@ def coloracao_tabuleiro(n, colors):
     solutions = []
     
     # Definir limite de tempo em segundos
-    time_limit = 120  # por exemplo, 10 segundos
+    time_limit = 120  # por exemplo, 120 segundos
     start_time = time.time()  # tempo de início
     
     if solve(board, 0, 0, n, colors, start_time, time_limit, solutions):
         # Gravar até 2 soluções e a quantidade total de soluções
-        with open('Problema 08 - Coloração de Tabuleiro com Restrições/output.txt', 'w', encoding='utf-8') as f:
+        with open('Problema 08 - Coloração de Tabuleiro com Restrições/teste.txt', 'w', encoding='utf-8') as f:
+            f.write(f"Para o Tabuleiro {n}x{n}, com {colors} cores. Temos as seguintes soluções encontradas:\n\n")
             if solutions:
-                f.write("Temos as seguintes soluções encontradas:\n\n")
                 for i, solution in enumerate(solutions):
                     f.write(f"Solução {i + 1}:\n")
                     for row in solution:
                         f.write(' '.join(map(str, row)) + '\n')
                     if i < len(solutions) - 1:
                         f.write("\n")
-                f.write("\nQuantidade de soluções encontradas: {}\n".format(len(solutions)))
+                f.write(f"\nQuantidade de soluções encontradas: {len(solutions)}\n")
             else:
                 f.write("A quantidade de soluções é zero.\n")
     else:
-        with open('Problema 08 - Coloração de Tabuleiro com Restrições/output.txt', 'w', encoding='utf-8') as f:
-            f.write("Tempo limite excedido. A quantidade de soluções pode ser zero ou não encontrada.\n")
+        with open('Problema 08 - Coloração de Tabuleiro com Restrições/teste.txt', 'w', encoding='utf-8') as f:
+            f.write(f"Para o Tabuleiro {n}x{n}, com {colors} cores. Tempo limite excedido. A quantidade de soluções pode ser zero ou não encontrada.\n")
 
 # Definir o tamanho do tabuleiro e o número de cores
 n = 3  # tamanho do tabuleiro n x n
