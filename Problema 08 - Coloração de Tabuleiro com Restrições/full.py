@@ -110,7 +110,7 @@ def coloracao_tabuleiro(n, colors):
             f.write(f"Para o Tabuleiro {n}x{n}, com {colors} cores. Tempo limite excedido. A quantidade de soluções pode ser zero ou não encontrada.\n")
 
 # ======================================================== INPUTS =======================================================================
-n = 3  # tamanho do tabuleiro n x n
+n = 7  # tamanho do tabuleiro n x n
 colors = 5  # número de cores
 
 # Processo
