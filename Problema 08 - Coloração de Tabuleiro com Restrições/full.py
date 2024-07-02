@@ -89,10 +89,12 @@ def coloracao_tabuleiro(n, colors):
     board = [[-1 for _ in range(n)] for _ in range(n)]
     solutions = []
     
-    time_limit = 120  
+    time_limit = 12 
     start_time = time.time()  
     
     if solve(board, 0, 0, n, colors, start_time, time_limit, solutions):
+        end_time = time.time()
+        elapsed_time = end_time - start_time
         with open('Problema 08 - Coloração de Tabuleiro com Restrições/full.txt', 'w', encoding='utf-8') as f:
             f.write(f"Para o Tabuleiro {n}x{n}, com {colors} cores. Temos as seguintes soluções encontradas:\n\n")
             if solutions:
@@ -103,14 +105,15 @@ def coloracao_tabuleiro(n, colors):
                     if i < len(solutions) - 1:
                         f.write("\n")
                 f.write(f"\nQuantidade de soluções encontradas: {len(solutions)}\n")
+                f.write(f"Tempo gasto: {elapsed_time:.2f} segundos\n")
             else:
                 f.write("A quantidade de soluções é zero.\n")
     else:
         with open('Problema 08 - Coloração de Tabuleiro com Restrições/full.txt', 'w', encoding='utf-8') as f:
             f.write(f"Para o Tabuleiro {n}x{n}, com {colors} cores. Tempo limite excedido. A quantidade de soluções pode ser zero ou não encontrada.\n")
-
+            f.write(f"Tempo gasto: {elapsed_time:.2f} segundos\n")
 # ======================================================== INPUTS =======================================================================
-n = 7  # tamanho do tabuleiro n x n
+n = 5  # tamanho do tabuleiro n x n
 colors = 5  # número de cores
 
 # Processo
