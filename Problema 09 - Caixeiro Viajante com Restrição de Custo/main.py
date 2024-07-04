@@ -1,7 +1,7 @@
 import itertools
 
 def caixeiro_viajante_com_orcamento(n, matriz_custos, valores, orcamento):
-    # Inicialização das tabelas de programação dinâmica
+    # Tabelas de programação dinâmica
     CUSTO = {}
     VALOR = {}
     CAMINHO = {}
@@ -102,7 +102,7 @@ def caixeiro_viajante_com_orcamento(n, matriz_custos, valores, orcamento):
     return resultado_custo_minimo, caminho_custo_minimo, resultado_valor_maximo, caminho_valor_maximo
 
 def main():
-    # Leitura do arquivo de entrada com codificação UTF-8
+    # Leitura do arquivo de entrada 
     with open('Problema 09 - Caixeiro Viajante com Restrição de Custo/input.txt', 'r', encoding='utf-8') as file:
         linhas = file.readlines()
     
@@ -113,12 +113,12 @@ def main():
 
     resultado_custo_minimo, caminho_custo_minimo, resultado_valor_maximo, caminho_valor_maximo = caixeiro_viajante_com_orcamento(n, matriz_custos, valores, orcamento)
 
-    # Mapeamento de números para letras (índice baseado em 1)
+    # Mapeamento de números para letras 
     def mapear_nos_para_letras(caminho):
         mapeamento = {1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E', 6: 'F', 7: 'G', 8: 'H', 9: 'I', 10: 'J'}
         return [mapeamento[no] for no in caminho]
 
-    # Escrita no arquivo de saída com codificação UTF-8
+    # Escrita no arquivo de saída 
     with open('Problema 09 - Caixeiro Viajante com Restrição de Custo/output.txt', 'w', encoding='utf-8') as file:
         file.write(f"{resultado_custo_minimo}\n")
         if caminho_custo_minimo:

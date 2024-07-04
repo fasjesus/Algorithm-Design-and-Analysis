@@ -55,7 +55,7 @@ def check_subgrids(board, n):
                                 return False
     return True
 
-def solve(board, row, col, n, colors, start_time, time_limit, solutions):
+def coloring_board(board, row, col, n, colors, start_time, time_limit, solutions):
     # Verificar tempo decorrido
     if time.time() - start_time > time_limit:
         return False
@@ -64,7 +64,7 @@ def solve(board, row, col, n, colors, start_time, time_limit, solutions):
         # Encontrou uma solução válida
         if check_diagonals(board, n) and check_subgrids(board, n):
             solutions.append([r[:] for r in board])
-            # Pare se encontrar 1 soluções
+            # Pare se encontrar 1 solução
             if len(solutions) == 1:
                 return True
         return False
@@ -73,30 +73,37 @@ def solve(board, row, col, n, colors, start_time, time_limit, solutions):
     next_col = (col + 1) % n
     
     if board[row][col] != -1:
-        return solve(board, next_row, next_col, n, colors, start_time, time_limit, solutions)
+        return coloring_board(board, next_row, next_col, n, colors, start_time, time_limit, solutions)
     
+    # COLORINDO DE FATO...
+
     found_solution = False
     for color in range(colors):
         if is_valid(board, row, col, color, n):
             board[row][col] = color
-            if solve(board, next_row, next_col, n, colors, start_time, time_limit, solutions):
+            if coloring_board(board, next_row, next_col, n, colors, start_time, time_limit, solutions):
                 found_solution = True
             board[row][col] = -1  # Backtracking step - remove a cor e tenta a próxima
     
     return found_solution
 
-def coloracao_tabuleiro(n, colors):
+def main(n, colors):
     board = [[-1 for _ in range(n)] for _ in range(n)]
     solutions = []
     
     time_limit = 12 
     start_time = time.time()  
     
-    if solve(board, 0, 0, n, colors, start_time, time_limit, solutions):
+    if coloring_board(board, 0, 0, n, colors, start_time, time_limit, solutions):
         end_time = time.time()
         elapsed_time = end_time - start_time
+
         with open('Problema 08 - Coloração de Tabuleiro com Restrições/full.txt', 'w', encoding='utf-8') as f:
-            f.write(f"Para o Tabuleiro {n}x{n}, com {colors} cores. Temos as seguintes soluções encontradas:\n\n")
+            f.write(f"======== PARA O TABULEIRO {n}x{n}, COM {colors} CORES =========\n")
+            f.write(f"\nTempo gasto: {elapsed_time:.2f} segundos\n")
+            f.write(f"Quantidade de soluções encontradas: {len(solutions)}\n")
+            f.write(f"\nSoluções:\n\n")
+ 
             if solutions:
                 for i, solution in enumerate(solutions):
                     f.write(f"Solução {i + 1}:\n")
@@ -104,17 +111,20 @@ def coloracao_tabuleiro(n, colors):
                         f.write(' '.join(map(str, row)) + '\n')
                     if i < len(solutions) - 1:
                         f.write("\n")
-                f.write(f"\nQuantidade de soluções encontradas: {len(solutions)}\n")
-                f.write(f"Tempo gasto: {elapsed_time:.2f} segundos\n")
             else:
                 f.write("A quantidade de soluções é zero.\n")
     else:
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+
         with open('Problema 08 - Coloração de Tabuleiro com Restrições/full.txt', 'w', encoding='utf-8') as f:
             f.write(f"Para o Tabuleiro {n}x{n}, com {colors} cores. Tempo limite excedido. A quantidade de soluções pode ser zero ou não encontrada.\n")
             f.write(f"Tempo gasto: {elapsed_time:.2f} segundos\n")
+
 # ======================================================== INPUTS =======================================================================
-n = 5  # tamanho do tabuleiro n x n
+n = 3       # tamanho do tabuleiro n x n
 colors = 5  # número de cores
 
-# Processo
-coloracao_tabuleiro(n, colors)
+if __name__ == "__main__":
+    main(n, colors)
+
